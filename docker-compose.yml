@@ -1,16 +1,34 @@
 version: '3'
 services:
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql 
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - nodenet
   node:
     build: 
       context: ./node
+      dockerfile: Dockerfile
     container_name: node
     image: lucasferraz2000/nodejs-fullcycle
     hostname: node
     networks:
       - nodenet
+    volumes:
+      - ./node:/usr/src/app
+    tty: true
   nginx: 
     build:
       context: ./nginx
+      dockerfile: Dockerfile
     container_name: nginx
     image: lucasferraz2000/nginx-fullcycle
     ports:
@@ -21,6 +39,5 @@ services:
       - nodenet
 networks:
  nodenet:
-  name: nodenet
   driver: bridge
        
