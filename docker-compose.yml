@@ -6,8 +6,6 @@ services:
     container_name: node
     image: lucasferraz2000/nodejs-fullcycle
     hostname: node
-    ports:
-      - "3000:3000"
     networks:
       - nodenet
   nginx: 
@@ -16,7 +14,7 @@ services:
     container_name: nginx
     image: lucasferraz2000/nginx-fullcycle
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - node
     networks:
