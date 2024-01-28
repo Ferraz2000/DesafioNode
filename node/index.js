@@ -11,12 +11,15 @@ const config = {
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
 
+const table = 'create table if not exists people(id int not null auto_increment, name varchar(255), primary key(id));'
+connection.query(table)
+ 
 
 app.get('/', (req, res) => {
     const novoNome = gerarNomeAleatorio();
 
     // Insere o novo nome no banco de dados
-    const sql = `INSERT INTO people (name) VALUES ('${novoNome}')`;
+       const sql = `INSERT INTO people (name) VALUES ('${novoNome}')`;
     connection.query(sql, (err) => {
         if (err) {
             console.error(err.message);
