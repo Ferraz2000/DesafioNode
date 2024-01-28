@@ -1,0 +1,28 @@
+version: '3'
+services:
+  node:
+    build: 
+      context: ./node
+    container_name: node
+    image: lucasferraz2000/nodejs-fullcycle
+    hostname: node
+    ports:
+      - "3000:3000"
+    networks:
+      - nodenet
+  nginx: 
+    build:
+      context: ./nginx
+    container_name: nginx
+    image: lucasferraz2000/nginx-fullcycle
+    ports:
+      - "80:80"
+    depends_on:
+      - node
+    networks:
+      - nodenet
+networks:
+ nodenet:
+  name: nodenet
+  driver: bridge
+       
