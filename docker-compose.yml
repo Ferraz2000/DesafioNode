@@ -24,6 +24,7 @@ services:
       - nodenet
     volumes:
       - ./node:/usr/src/app
+    command: bash -c "npm install express --save && node index.js"
     tty: true
   nginx: 
     build:
